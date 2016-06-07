@@ -14,5 +14,5 @@ import Models
 
 
 type Api =
-       "user" :> "add" :> ReqBody '[JSON] User :> Post '[JSON] ()
+       "user" :> "add" :> ReqBody '[JSON] User :> Post '[JSON] NoContent
   :<|> "user" :> "get" :> Capture "name" Text  :> Get  '[JSON] (Maybe User)

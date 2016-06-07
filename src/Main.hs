@@ -1,7 +1,7 @@
 {-# LANGUAGE DataKinds         #-}
 {-# LANGUAGE DeriveGeneric #-}
-{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE LambdaCase        #-}
+{-# LANGUAGE OverloadedStrings #-}
 {-# LANGUAGE TypeFamilies      #-}
 {-# LANGUAGE TypeOperators     #-}
 
@@ -9,6 +9,8 @@ module Main where
 
 import           Control.Monad.IO.Class
 import           Control.Monad.Logger (runStderrLoggingT)
+
+import           Data.Functor
 
 import           Database.Persist
 import           Database.Persist.Sql
@@ -32,7 +34,7 @@ server :: ConnectionPool -> Server Api
 server pool =
   userAddH :<|> userGetH
   where
-    userAddH newUser = liftIO $ userAdd newUser
+    userAddH newUser = liftIO $ (userAdd newUser $> NoContent)
     userGetH name    = liftIO $ userGet name
 
     userAdd :: User -> IO ()
