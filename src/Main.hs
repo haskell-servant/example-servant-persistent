@@ -28,7 +28,7 @@ runDB :: ConnectionPool -> SqlPersistT IO a -> IO a
 runDB pool query = liftIO $ runSqlPool query pool
 
 
-server :: ConnectionPool -> Server TestAPI
+server :: ConnectionPool -> Server Api
 server pool =
   userAddH :<|> userGetH
   where
@@ -45,11 +45,11 @@ server pool =
       mUser <- selectFirst [UserName ==. name] []
       return $ entityVal <$> mUser
 
-testAPI :: Proxy TestAPI
-testAPI = Proxy
+api :: Proxy Api
+api = Proxy
 
 app :: ConnectionPool -> Application
-app pool = serve testAPI $ server pool
+app pool = serve api $ server pool
 
 main :: IO ()
 main = do

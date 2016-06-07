@@ -13,6 +13,6 @@ import Servant.API
 import Models
 
 
-type TestAPI =
+type Api =
        "user" :> "add" :> ReqBody '[JSON] User :> Post '[JSON] ()
   :<|> "user" :> "get" :> Capture "name" Text  :> Get  '[JSON] (Maybe User)
