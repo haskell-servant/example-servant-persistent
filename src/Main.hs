@@ -10,8 +10,6 @@ module Main where
 import           Control.Monad.IO.Class
 import           Control.Monad.Logger (runStderrLoggingT)
 
-import           Data.Functor
-
 import           Database.Persist
 import           Database.Persist.Sql
 import           Database.Persist.Sqlite
@@ -34,13 +32,12 @@ server :: ConnectionPool -> Server Api
 server pool =
   userAddH :<|> userGetH
   where
-    userAddH newUser = liftIO $ (userAdd newUser $> NoContent)
+    userAddH newUser = liftIO $ userAdd newUser
     userGetH name    = liftIO $ userGet name
 
-    userAdd :: User -> IO ()
+    userAdd :: User -> IO (Key User)
     userAdd newUser = flip runSqlPersistMPool pool $ do
-      _ <- insert newUser
-      return ()
+      insert newUser
 
     userGet :: Text -> IO (Maybe User)
     userGet name = flip runSqlPersistMPool pool $ do

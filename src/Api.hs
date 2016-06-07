@@ -8,11 +8,14 @@ module Api where
 
 import Data.Text
 
-import Servant.API
+import Database.Persist
 
 import Models
 
+import Servant.API
+
+
 
 type Api =
-       "user" :> "add" :> ReqBody '[JSON] User :> Post '[JSON] NoContent
+       "user" :> "add" :> ReqBody '[JSON] User :> Post '[JSON] (Key User)
   :<|> "user" :> "get" :> Capture "name" Text  :> Get  '[JSON] (Maybe User)
