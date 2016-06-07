@@ -10,6 +10,8 @@ module App where
 import           Control.Monad.IO.Class
 import           Control.Monad.Logger (runStderrLoggingT)
 
+import           Data.String.Conversions
+
 import           Database.Persist
 import           Database.Persist.Sql
 import           Database.Persist.Sqlite
@@ -50,14 +52,14 @@ server pool =
 app :: ConnectionPool -> Application
 app pool = serve api $ server pool
 
-mkApp :: IO Application
-mkApp = do
+mkApp :: FilePath -> IO Application
+mkApp sqliteFile = do
   pool <- runStderrLoggingT $ do
-    createSqlitePool ":memory:" 5
+    createSqlitePool (cs sqliteFile) 5
 
   runSqlPool (runMigration migrateAll) pool
   return $ app pool
 
-run :: IO ()
-run =
-  Warp.run 3000 =<< mkApp
+run :: FilePath -> IO ()
+run sqliteFile =
+  Warp.run 3000 =<< mkApp sqliteFile

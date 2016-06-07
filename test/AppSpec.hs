@@ -19,6 +19,7 @@ import           Servant.API
 import           Servant.Client
 
 import           Test.Hspec
+import           Test.Mockery.Directory
 
 userAdd :: _
 userGet :: Text -> Manager -> BaseUrl -> ClientM (Maybe User)
@@ -51,7 +52,9 @@ spec = do
 
 withApp :: (Int -> IO a) -> IO a
 withApp action =
-  testWithApplication mkApp action
+  inTempDirectory $ do
+    app <- mkApp "sqlite.db"
+    testWithApplication (return app) action
 
 try :: Int -> (Manager -> BaseUrl -> ClientM a) -> IO a
 try port action = do

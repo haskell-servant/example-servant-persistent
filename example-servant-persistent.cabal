@@ -23,6 +23,7 @@ executable example-servant-persistent
                      , persistent-sqlite
                      , servant
                      , servant-server
+                     , string-conversions
                      , text
                      , transformers
                      , wai
@@ -51,7 +52,9 @@ test-suite spec
                      , servant
                      , servant-client
                      , servant-server
+                     , string-conversions
                      , warp
                      , http-client
                      , text
+                     , mockery
   default-language:    Haskell2010
