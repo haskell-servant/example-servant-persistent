@@ -13,6 +13,7 @@ cabal-version:       >=1.10
 executable example-servant-persistent
   main-is:             Main.hs
   other-modules:       Api
+                     , App
                      , Models
   build-depends:       base >=4.8 && <4.9
                      , aeson
@@ -27,4 +28,30 @@ executable example-servant-persistent
                      , wai
                      , warp
   hs-source-dirs:      src
+  default-language:    Haskell2010
+
+test-suite spec
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  hs-source-dirs:      test
+                     , src
+  other-modules:       Api
+                     , App
+                     , Models
+                     , AppSpec
+  build-depends:       base >=4.8 && <4.9
+                     , hspec
+                     , aeson
+                     , persistent
+                     , monad-logger
+                     , persistent-template
+                     , persistent-sqlite
+                     , transformers
+                     , wai
+                     , servant
+                     , servant-client
+                     , servant-server
+                     , warp
+                     , http-client
+                     , text
   default-language:    Haskell2010
