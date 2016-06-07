@@ -13,7 +13,6 @@ module Models where
 import Data.Aeson
 import Data.Text
 
-import Database.Persist
 import Database.Persist.TH
 
 share [mkPersist sqlSettings, mkMigrate "migrateAll"] [persistLowerCase|
@@ -25,11 +24,11 @@ User
 |]
 
 instance FromJSON User where
-  parseJSON (Object v) =
+  parseJSON = withObject "User" $ \ v ->
     User <$> v .: "name"
          <*> v .: "age"
 
 instance ToJSON User where
-  toJSON (User userName userAge) =
-    object [ "name" .= userName
-           , "age"  .= userAge  ]
+  toJSON (User name age) =
+    object [ "name" .= name
+           , "age"  .= age  ]

@@ -19,8 +19,6 @@ import           Network.Wai.Handler.Warp
 
 import           Servant
 
-
-import           Data.Aeson
 import           Data.Text
 
 import           Api
@@ -39,7 +37,7 @@ server pool =
 
     userAdd :: User -> IO ()
     userAdd newUser = flip runSqlPersistMPool pool $ do
-      insert newUser
+      _ <- insert newUser
       return ()
 
     userGet :: Text -> IO (Maybe User)
@@ -57,8 +55,6 @@ main :: IO ()
 main = do
   pool <- runStderrLoggingT $ do
     createSqlitePool ":memory:" 5
-
-  -- createSqlitePool "test.sqlite" 5
 
   runSqlPool (runMigration migrateAll) pool
   run 8081 $ app pool

@@ -6,12 +6,7 @@
 
 module Api where
 
-import Data.Aeson
 import Data.Text
-
-import Database.Persist
-
-import GHC.Generics
 
 import Servant.API
 
