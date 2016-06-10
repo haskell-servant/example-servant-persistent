@@ -26,10 +26,6 @@ import           Data.Text
 import           Api
 import           Models
 
-runDB :: ConnectionPool -> SqlPersistT IO a -> IO a
-runDB pool query = liftIO $ runSqlPool query pool
-
-
 server :: ConnectionPool -> Server Api
 server pool =
   userAddH :<|> userGetH
