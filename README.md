@@ -5,14 +5,14 @@ database.
 
 You can build and run the project with [stack](http://haskellstack.org/), e.g.:
 
-``` bash
+```shell
 stack build
 stack exec example-servant-persistent
 ```
 
 Then you can query the server from a separate shell:
 
-``` bash
-curl -H 'Content-type: application/json' localhost:3000/user/add --data '{"name": "Alice", "age": 42}'
-curl -H 'Content-type: application/json' localhost:3000/user/get/Alice
+```shell
+curl -H 'Content-type: application/json' localhost:3000/user --data '{"name": "Alice", "age": 42}'
+curl -H 'Content-type: application/json' localhost:3000/user/Alice
 ```

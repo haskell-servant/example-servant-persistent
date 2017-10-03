@@ -28,11 +28,11 @@ userAdd :<|> userGet = client api
 spec :: Spec
 spec = do
   around withApp $ do
-    describe "/user/get" $ do
+    describe "/user GET" $ do
       it "returns Nothing for non-existing users" $ \ port -> do
         try port (userGet "foo") `shouldReturn` Nothing
 
-    describe "/user/add" $ do
+    describe "/user POST" $ do
       it "allows to add a user" $ \ port -> do
         let user = User "Alice" 1
         id <- try port (userAdd user)
