@@ -21,8 +21,8 @@ import           Servant.Client
 import           Test.Hspec
 import           Test.Mockery.Directory
 
-userAdd :: _
-userGet :: Text -> Manager -> BaseUrl -> ClientM (Maybe User)
+userAdd :: User -> ClientM (Maybe (Key User))
+userGet :: Text -> ClientM (Maybe User)
 userAdd :<|> userGet = client api
 
 spec :: Spec
@@ -56,11 +56,11 @@ withApp action =
     app <- mkApp "sqlite.db"
     testWithApplication (return app) action
 
-try :: Int -> (Manager -> BaseUrl -> ClientM a) -> IO a
+try :: Int -> ClientM a -> IO a
 try port action = do
   manager <- newManager defaultManagerSettings
   let baseUrl = BaseUrl Http "localhost" port ""
-  result <- runExceptT $ action manager baseUrl
+  result <- runClientM action (ClientEnv manager baseUrl)
   case result of
     Left err -> throwIO $ ErrorCall $ show err
     Right a -> return a
