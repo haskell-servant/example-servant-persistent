@@ -7,21 +7,17 @@
 
 module App where
 
-import           Control.Monad.IO.Class
+import           Control.Monad.IO.Class (liftIO)
 import           Control.Monad.Logger (runStderrLoggingT)
-
-import           Data.String.Conversions
-
-import           Database.Persist
-import           Database.Persist.Sql
-import           Database.Persist.Sqlite
-
-import           Network.Wai
+import           Database.Persist.Sqlite ( ConnectionPool, createSqlitePool
+                                         , runSqlPool, runSqlPersistMPool
+                                         , runMigration, selectFirst, (==.)
+                                         , insert, entityVal)
+import           Data.String.Conversions (cs)
+import           Data.Text (Text)
 import           Network.Wai.Handler.Warp as Warp
 
 import           Servant
-
-import           Data.Text
 
 import           Api
 import           Models
