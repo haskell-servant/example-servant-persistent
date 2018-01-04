@@ -12,9 +12,7 @@ cabal-version:       >=1.10
 
 executable example-servant-persistent
   main-is:             Main.hs
-  other-modules:       Api
-                     , App
-                     , Models
+  other-modules:       App
   build-depends:       base >=4.8 && <4.11
                      , aeson
                      , monad-logger
@@ -36,9 +34,7 @@ test-suite spec
   main-is: Spec.hs
   hs-source-dirs:      test
                      , src
-  other-modules:       Api
-                     , App
-                     , Models
+  other-modules:       App
                      , AppSpec
   build-depends:       base >=4.8 && <4.11
                      , hspec

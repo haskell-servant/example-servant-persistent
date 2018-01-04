@@ -2,15 +2,13 @@
 
 module AppSpec where
 
-import           Api
 import           App
 
 import           Control.Exception (throwIO, ErrorCall(..))
 import           Control.Monad.Trans.Except
 
 import           Data.Text
-
-import           Models
+import           Database.Persist (Key)
 
 import           Network.HTTP.Client
 import           Network.Wai.Handler.Warp
