@@ -15,7 +15,7 @@ executable example-servant-persistent
   other-modules:       Api
                      , App
                      , Models
-  build-depends:       base >=4.8 && <4.9
+  build-depends:       base >=4.8 && <4.11
                      , aeson
                      , monad-logger
                      , persistent
@@ -40,7 +40,7 @@ test-suite spec
                      , App
                      , Models
                      , AppSpec
-  build-depends:       base >=4.8 && <4.9
+  build-depends:       base >=4.8 && <4.11
                      , hspec
                      , aeson
                      , persistent
